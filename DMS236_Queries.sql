@@ -217,3 +217,25 @@ SELECT c.CourseName, AVG(e.Grade) AS AverageGrade
 FROM Courses c JOIN Enrolment e ON c.CourseID = e.CourseID
 GROUP BY c.CourseName
 HAVING AVG(e.Grade) < 80;
+
+-- SUM: total grades awarded per course
+SELECT c.CourseName, SUM(e.Grade) AS TotalGrades
+FROM Courses c
+JOIN Enrolment e ON c.CourseID = e.CourseID
+GROUP BY c.CourseName;
+
+-- MAX and MIN: highest and lowest grade per course
+SELECT c.CourseName,
+       MAX(e.Grade) AS HighestGrade,
+       MIN(e.Grade) AS LowestGrade
+FROM Courses c
+JOIN Enrolment e ON c.CourseID = e.CourseID
+GROUP BY c.CourseName;
+
+-- GROUP BY: report of students by course
+SELECT c.CourseName,
+       COUNT(e.StudentID) AS TotalStudents
+FROM Courses c
+LEFT JOIN Enrolment e ON c.CourseID = e.CourseID
+GROUP BY c.CourseName
+ORDER BY c.CourseName;
